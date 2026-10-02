@@ -193,7 +193,8 @@ public sealed class SampleModule :
         root.Children.Add(
             footer);
 
-        return root;
+        return new SampleSurface(
+            root);
     }
 
     private static UIElement ProofLine(
@@ -251,5 +252,15 @@ public sealed class SampleModule :
 
         brush.Freeze();
         return brush;
+    }
+}
+
+internal sealed class SampleSurface : UserControl
+{
+    public SampleSurface(
+        UIElement content)
+    {
+        Content =
+            content;
     }
 }
