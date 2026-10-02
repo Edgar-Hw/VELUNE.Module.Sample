@@ -4,6 +4,7 @@
   "name": "VELUNE Sample Module",
   "version": "1.0.0",
   "publisher": "VELUNE",
+  "description": "Reference module for validating VELUNE external module loading, Rail contribution, Module Surface integration, and package lifecycle.",
   "minimumVeluneVersion": "1.0.0",
   "requiredApiVersion": "1.0",
   "entryAssembly": "Velune.Module.Sample.dll",
