@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "com.velune.sample",
+  "name": "VELUNE Sample Module",
+  "version": "1.0.0",
+  "publisher": "VELUNE",
+  "minimumVeluneVersion": "1.0.0",
+  "requiredApiVersion": "1.0",
+  "entryAssembly": "Velune.Module.Sample.dll",
+  "entryType": "Velune.Module.Sample.SampleModule",
+  "icon": "assets/icon.png",
+  "requestedCapabilities": [],
+  "contributions": {
+    "rail": true,
+    "surface": true,
+    "settings": false,
+    "commands": true,
+    "notifications": false
+  }
+}
