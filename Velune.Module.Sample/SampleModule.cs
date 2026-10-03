@@ -24,7 +24,7 @@ public sealed class SampleModule :
                 {
                     Id = new ContributionId("sample.rail"),
                     DisplayName = "Sample",
-                    Icon = "◇",
+                    Icon = "\uE8A5",
                     SurfaceId = new ContributionId("sample.surface"),
                     OrderHint = 50
                 }
