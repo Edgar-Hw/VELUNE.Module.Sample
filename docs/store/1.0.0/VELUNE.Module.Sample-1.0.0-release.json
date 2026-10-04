@@ -4,13 +4,13 @@
     "version":  "1.0.0",
     "package":  {
                     "fileName":  "VELUNE.Module.Sample-1.0.0.velune",
-                    "length":  13329,
-                    "sha256":  "627f6a603d5be8363dfb48f2123f751a2d22b9105a93a3644d7ff425e3e1b573"
+                    "length":  13246,
+                    "sha256":  "e5b5c1d0a9e66303e3484721e83a54aad166a12a5f3433179d7a1670e50dba0e"
                 },
     "detail":  {
                    "fileName":  "VELUNE.Module.Sample-1.0.0-detail.md",
-                   "length":  467,
-                   "sha256":  "071429b1a2d244cd6a4c306a7300bdb32992fdc3833bef83f863300bdbee22ce"
+                   "length":  450,
+                   "sha256":  "f0e46dd41708ac77c818a6bfbf144d50e272bc937b275a1541383751a4a002fc"
                },
     "assets":  [
                    {

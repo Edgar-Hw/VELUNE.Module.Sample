@@ -14,7 +14,7 @@ $detailPreviewPath = Join-Path $root 'assets\detail-preview.png'
 $artifacts = Join-Path $root 'artifacts'
 $stage = Join-Path $artifacts '.stage'
 
-& $dotnet build $project -c Release
+& $dotnet build $project -c Release -p:IncludeSourceRevisionInInformationalVersion=false
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json

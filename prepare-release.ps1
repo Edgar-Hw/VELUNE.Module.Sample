@@ -59,7 +59,7 @@ $bundleManifestPath = Join-Path $bundleRoot $releaseManifestFileName
 Copy-Item $packagePath $bundlePackagePath
 Copy-Item $previewPath $bundlePreviewPath
 
-$readme = Get-Content $readmePath -Raw
+$readme = (Get-Content $readmePath -Raw).Replace("`r`n", "`n").Replace("`r", "`n")
 $packageImageReference = 'assets/detail-preview.png'
 
 if (-not $readme.Contains($packageImageReference)) {
