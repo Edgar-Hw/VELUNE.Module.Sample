@@ -2,6 +2,8 @@
 
 External boundary proof module for VELUNE Platform 1.0.
 
+![VELUNE Sample Module](assets/detail-preview.png)
+
 References:
 - Velune.Module.Abstractions
 - Velune.UI

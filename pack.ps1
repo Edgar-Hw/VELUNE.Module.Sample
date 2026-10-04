@@ -10,6 +10,7 @@ $project = Join-Path $root 'Velune.Module.Sample\Velune.Module.Sample.csproj'
 $manifestPath = Join-Path $root 'Velune.Module.Sample\module.json'
 $iconPath = Join-Path $root 'Velune.Module.Sample\assets\icon.png'
 $detailDocumentPath = Join-Path $root 'README.md'
+$detailPreviewPath = Join-Path $root 'assets\detail-preview.png'
 $artifacts = Join-Path $root 'artifacts'
 $stage = Join-Path $artifacts '.stage'
 
@@ -23,8 +24,9 @@ New-Item -ItemType Directory -Force (Join-Path $stage 'assets') | Out-Null
 Copy-Item $manifestPath (Join-Path $stage 'module.json')
 Copy-Item $dll (Join-Path $stage 'Velune.Module.Sample.dll')
 Copy-Item $iconPath (Join-Path $stage 'assets\icon.png')
+Copy-Item $detailPreviewPath (Join-Path $stage 'assets\detail-preview.png')
 Copy-Item $detailDocumentPath (Join-Path $stage 'README.md')
-$files = foreach ($relative in @('module.json','Velune.Module.Sample.dll','assets/icon.png','README.md')) {
+$files = foreach ($relative in @('module.json','Velune.Module.Sample.dll','assets/icon.png','assets/detail-preview.png','README.md')) {
     $full = Join-Path $stage ($relative -replace '/', '\')
     $item = Get-Item $full
     [ordered]@{
