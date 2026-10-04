@@ -9,6 +9,7 @@ $dotnet = if ([string]::IsNullOrWhiteSpace($env:VELUNE_DOTNET)) {
 $project = Join-Path $root 'Velune.Module.Sample\Velune.Module.Sample.csproj'
 $manifestPath = Join-Path $root 'Velune.Module.Sample\module.json'
 $iconPath = Join-Path $root 'Velune.Module.Sample\assets\icon.png'
+$detailDocumentPath = Join-Path $root 'README.md'
 $artifacts = Join-Path $root 'artifacts'
 $stage = Join-Path $artifacts '.stage'
 
@@ -22,7 +23,8 @@ New-Item -ItemType Directory -Force (Join-Path $stage 'assets') | Out-Null
 Copy-Item $manifestPath (Join-Path $stage 'module.json')
 Copy-Item $dll (Join-Path $stage 'Velune.Module.Sample.dll')
 Copy-Item $iconPath (Join-Path $stage 'assets\icon.png')
-$files = foreach ($relative in @('module.json','Velune.Module.Sample.dll','assets/icon.png')) {
+Copy-Item $detailDocumentPath (Join-Path $stage 'README.md')
+$files = foreach ($relative in @('module.json','Velune.Module.Sample.dll','assets/icon.png','README.md')) {
     $full = Join-Path $stage ($relative -replace '/', '\')
     $item = Get-Item $full
     [ordered]@{
