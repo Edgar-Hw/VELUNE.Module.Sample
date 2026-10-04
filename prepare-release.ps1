@@ -6,6 +6,7 @@ $manifestPath = Join-Path $root 'Velune.Module.Sample\module.json'
 $readmePath = Join-Path $root 'README.md'
 $previewPath = Join-Path $root 'assets\detail-preview.png'
 $artifacts = Join-Path $root 'artifacts'
+$pagesRoot = Join-Path $root 'docs'
 
 if (-not (Test-Path $packScript)) {
     throw 'pack.ps1 is missing.'
@@ -116,7 +117,62 @@ $releaseJson = $releaseManifest | ConvertTo-Json -Depth 8
     $releaseJson,
     $utf8)
 
+$pagesVersionRoot = Join-Path (Join-Path $pagesRoot 'store') $version
+Remove-Item $pagesVersionRoot -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force $pagesVersionRoot | Out-Null
+
+Copy-Item $bundlePackagePath (Join-Path $pagesVersionRoot $packageFileName)
+Copy-Item $bundleDetailPath (Join-Path $pagesVersionRoot $detailFileName)
+Copy-Item $bundlePreviewPath (Join-Path $pagesVersionRoot $previewFileName)
+Copy-Item $bundleManifestPath (Join-Path $pagesVersionRoot $releaseManifestFileName)
+
+[IO.File]::WriteAllText(
+    (Join-Path $pagesRoot '.nojekyll'),
+    '',
+    $utf8)
+
+$indexHtml = @"
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VELUNE Module Sample</title>
+  <style>
+    :root { color-scheme: dark; font-family: "Segoe UI Variable Text","Segoe UI",sans-serif; background:#0e1a23; color:#dce8f2; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; }
+    main { width:min(680px,calc(100vw - 48px)); padding:48px 0 64px; }
+    h1 { margin:0; font-size:32px; font-weight:400; letter-spacing:-.02em; }
+    p { color:#91a4b2; line-height:1.65; }
+    .meta { margin-top:28px; padding-top:20px; border-top:1px solid #243b4d; font-size:13px; }
+    a { color:#79b7e3; text-decoration:none; }
+    a:hover { color:#b7dcf7; }
+    .files { display:grid; gap:10px; margin-top:18px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>VELUNE Module Sample</h1>
+    <p>Reference module distribution for validating the public VELUNE module contract.</p>
+    <div class="meta">Current version: $version</div>
+    <div class="files">
+      <a href="store/$version/$packageFileName">Download .velune package</a>
+      <a href="store/$version/$detailFileName">View Store detail Markdown</a>
+      <a href="store/$version/$releaseManifestFileName">View release manifest</a>
+    </div>
+  </main>
+</body>
+</html>
+"@
+
+[IO.File]::WriteAllText(
+    (Join-Path $pagesRoot 'index.html'),
+    $indexHtml,
+    $utf8)
+
 Write-Output "BUNDLE_ROOT=$bundleRoot"
+Write-Output "PAGES_ROOT=$pagesRoot"
+Write-Output "PAGES_VERSION_ROOT=$pagesVersionRoot"
 Write-Output "PACKAGE=$packageFileName"
 Write-Output "PACKAGE_SHA256=$($packageMetadata.sha256)"
 Write-Output "DETAIL=$detailFileName"

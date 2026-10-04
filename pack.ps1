@@ -48,14 +48,66 @@ $package = [ordered]@{
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $packageJson = $package | ConvertTo-Json -Depth 8
 [IO.File]::WriteAllText((Join-Path $stage 'package.json'), $packageJson, $utf8)
-Add-Type -AssemblyName System.IO.Compression.FileSystem
+Add-Type -AssemblyName System.IO.Compression
 $output = Join-Path $artifacts ("VELUNE.Module.Sample-{0}.velune" -f $manifest.version)
 Remove-Item $output -Force -ErrorAction SilentlyContinue
-[IO.Compression.ZipFile]::CreateFromDirectory(
-    $stage,
+
+$entryOrder = @(
+    'module.json',
+    'Velune.Module.Sample.dll',
+    'assets/icon.png',
+    'assets/detail-preview.png',
+    'README.md',
+    'package.json'
+)
+$fixedTimestamp = [DateTimeOffset]::new(
+    1980,
+    1,
+    1,
+    0,
+    0,
+    0,
+    [TimeSpan]::Zero)
+
+$archiveStream = [IO.File]::Open(
     $output,
-    [IO.Compression.CompressionLevel]::Optimal,
-    $false)
+    [IO.FileMode]::CreateNew,
+    [IO.FileAccess]::Write,
+    [IO.FileShare]::None)
+
+try {
+    $archive = [IO.Compression.ZipArchive]::new(
+        $archiveStream,
+        [IO.Compression.ZipArchiveMode]::Create,
+        $false)
+
+    try {
+        foreach ($relative in $entryOrder) {
+            $sourcePath = Join-Path $stage ($relative -replace '/', '\')
+            $entry = $archive.CreateEntry(
+                $relative,
+                [IO.Compression.CompressionLevel]::Optimal)
+            $entry.LastWriteTime = $fixedTimestamp
+
+            $entryStream = $entry.Open()
+            $sourceStream = [IO.File]::OpenRead($sourcePath)
+
+            try {
+                $sourceStream.CopyTo($entryStream)
+            }
+            finally {
+                $sourceStream.Dispose()
+                $entryStream.Dispose()
+            }
+        }
+    }
+    finally {
+        $archive.Dispose()
+    }
+}
+finally {
+    $archiveStream.Dispose()
+}
 
 Remove-Item $stage -Recurse -Force
 Write-Output $output
