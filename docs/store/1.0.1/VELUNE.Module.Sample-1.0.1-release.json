@@ -1,0 +1,23 @@
+{
+    "schemaVersion":  1,
+    "moduleId":  "com.velune.sample",
+    "version":  "1.0.1",
+    "package":  {
+                    "fileName":  "VELUNE.Module.Sample-1.0.1.velune",
+                    "length":  13108,
+                    "sha256":  "2ff19048b727ba34b73c6c9d8f1c6d7b9944966f406b47e5665bd6a79b265c12"
+                },
+    "detail":  {
+                   "fileName":  "VELUNE.Module.Sample-1.0.1-detail.md",
+                   "length":  450,
+                   "sha256":  "7b127ae08b51b355699936f919251fb6458add0c9dbd66920f1136c61b671a35"
+               },
+    "assets":  [
+                   {
+                       "source":  "VELUNE.Module.Sample-1.0.1-detail-preview.png",
+                       "fileName":  "VELUNE.Module.Sample-1.0.1-detail-preview.png",
+                       "length":  6525,
+                       "sha256":  "20813edd5d43bc5876bc29e5243d784b0975161efe4f92d1377a32de4551774b"
+                   }
+               ]
+}

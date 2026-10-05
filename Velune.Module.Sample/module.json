@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "com.velune.sample",
   "name": "VELUNE Sample Module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "VELUNE",
   "summary": "Reference module for validating VELUNE external module loading, Rail contribution, Module Surface integration, and package lifecycle.",
   "description": "Reference module for validating VELUNE external module loading, Rail contribution, Module Surface integration, and package lifecycle.",
